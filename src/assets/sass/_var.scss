@@ -1,0 +1,40 @@
+/* -------------
+  width
+------------- */
+$w_gnavi: 140px;
+$w_gnaviClose: 50px;
+$w_sidePadding: 65px;
+
+/* -------------
+  transition-duration
+------------- */
+$tr_speed: 0.4s;
+
+/* -------------
+  transition-opacity
+------------- */
+$tr_opacity: 0.7;
+
+/* -------------
+  box-shadow
+------------- */
+$bs_standard: 0 0 2px rgba(#000,0.1); 
+
+/* -------------
+  line-height
+------------- */
+@mixin lineHeight-std {
+  line-height: 1.5;
+  body.lang-en & {
+    line-height: 1.3;
+  }
+}
+
+@mixin lineHeight-wide {
+  line-height: 1.75;
+  body.lang-en & {
+    line-height: 1.5;
+  }
+}
+
+

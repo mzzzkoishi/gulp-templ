@@ -1,0 +1,243 @@
+/* -------------------
+  Layout
+
+.l-wrapper
+  ├ .l-header 
+  ├ .l-container （フレームを規定 .f-xxx）
+  │   ├ .l-billboard //ビルボードエリア（w100%・幅固定などあり）
+  │   └ .l-content （テンプレートを規定 .t-xxx）
+  │      ├ .l-stride （2column時にメインカラム、サイドカラムを跨ぐエリア）
+  │      └ .l-content-inner（幅固定）
+  │        ├ .l-main //メインコンテンツ
+  │        │    └ .l-section //セクション 
+  │        │      └ .l-inner //基本のpadding（必須ではない） 
+  │        └ .l-side //2column時のサイドカラム
+  └ .l-footer
+.l-gnavi
+
+------------------- */
+
+@mixin contentBasic {
+  min-width: 1100px;
+  max-width: 1500px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+  @include mqTB {
+    min-width: 1024px;
+    max-width: 100%;
+  }
+}
+
+body {
+  min-width: 1280px;
+}
+
+// gnavi以外の全体包括
+.l-wrapper {
+  padding-left: $w_gnaviClose;
+  position: relative;
+  background-color: $c_w;
+}
+
+.l-header {
+  background-color: $c_w;
+  min-width: 1100px;
+  @include mqTB {
+    min-width: 1024px;
+    // &.is-fixed {
+    //   min-width: calc(100% - 50px);
+    // }
+  }
+  &.is-fixed {
+    position: fixed;
+    top: -100px;
+    left: 50px;
+    right: 0;
+    z-index: 998;
+    // width: calc(100% - 50px);
+    background-color: rgba($c_w,0.93);
+    transition-property: top;
+    transition-duration: .4s;
+    transition-timing-function: cubic-bezier(.19,1,.22,1);
+  }
+}
+
+
+
+.l-container {
+  background-color: $c_w;
+}
+
+.l-stride {
+  @include contentBasic;
+  padding: 0 $w_sidePadding;
+  @include mqTB {
+    padding: 0 3vw;
+  }
+}
+
+/* -------------------
+  f-column-full内で使用
+-------------------*/
+
+// windowサイズ width 100%
+.l-fullWidth {
+  width: 100%;
+  min-width: 1100px;
+  position: relative;
+  @include mqTB {
+    min-width: 1024px;
+  }
+}
+
+// widthリキッド。左右にpadding無
+.l-flexWidth {
+  @include contentBasic;
+}
+
+// widthリキッド。左右にpadding有
+.l-fixWidth {
+  @include contentBasic;
+  padding: 0 $w_sidePadding;
+  @include mqTB {
+    padding: 0 3vw;
+  }
+  //Det(学科のパネルのみ例外でリキッドさせない)
+  .panel_circle & {
+    max-width: 1100px;
+  }
+  
+}
+
+.l-content {
+  padding-bottom: 185px;
+}
+
+.l-content-inner {
+  .f-column-1 & {
+    padding: 0 $w_sidePadding;
+    @include contentBasic;
+    @include mqTB {
+      padding: 0 3vw;
+    }
+  }
+  .f-column-2 & {
+    padding: 0 $w_sidePadding;
+    @include contentBasic;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    overflow: hidden;
+    @include mqTB {
+      padding: 0 3vw;
+    }
+  }
+}
+
+.l-main {
+  .f-column-2 & {
+    display: table-cell;
+    vertical-align: top;
+  }
+}
+
+.l-side {
+  .f-column-2 & {
+    display: table-cell;
+    width: 300px;
+    vertical-align: top;
+  }
+}
+
+.l-section {
+  .l-main & {
+    margin-bottom: 65px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .l-side & {
+    .section-content {
+      background-color: $c_k5;
+      margin: 0 0 5px 0;
+      padding: 30px 0 0 0;
+    }
+  }
+  .section-content {
+    background-color: $c_w;
+  }
+  .t-club-circle & {
+    margin-bottom: 0;
+    padding-top: 65px;
+  }
+}
+
+.l-section_secondary {
+  margin-bottom: 70px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.l-inner {
+  padding: 60px;
+  .f-column-2 .l-main .heading_searchResult + .section-content &,
+  .f-column-2 .l-main .refine + .section-content & {
+    padding-top: 0;
+    .panel_event {
+      margin-top: 0;
+    }
+  }
+  .l-side & {
+    padding: 35px 25px;
+    box-sizing: border-box;
+  }
+}
+
+.l-footer {
+  background-color: $c_w;
+  min-width: 1100px;
+  position: relative;
+  @include mqTB {
+    min-width: 1024px;
+  }
+  .footer-inner {
+    @include contentBasic;
+    padding: 40px $w_sidePadding 60px;
+    @include mqTB {
+      padding: 40px 3vw 60px;
+    }
+  }
+}
+
+
+//gnavi
+.l-gnavi {
+  width: $w_gnaviClose;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: $c_p1;
+  @include yuMin-M;
+  body.is-dpt_letters & {
+    background-color: $c_dpt_letters;
+  }
+  body.is-dpt_shinto & {
+    background-color: $c_dpt_shinto;
+  }
+  body.is-dpt_law & {
+    background-color: $c_dpt_law;
+  }
+  body.is-dpt_economics & {
+    background-color: $c_dpt_economics;
+  }
+  body.is-dpt_human & {
+    background-color: $c_dpt_human;
+  }
+  body.is-club-circle & {
+    background-color: $c_c1;
+  }
+}

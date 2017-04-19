@@ -1,0 +1,214 @@
+/* -----------------
+@include MediaQuery
+----------------- */
+@mixin mqPC {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin mqTB {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
+/* -----------------
+  @extend clearfix
+----------------- */
+%clearfix {
+  *zoom: 1;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/* -----------------
+  icofont settings
+----------------- */
+@mixin icofont {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* -----------------
+  icofont icon
+----------------- */
+@mixin icon-arrowRight($size) {
+  @include icofont;
+  content: "\e91b";
+  display: inline-block;
+  font-size: #{$size}px;
+  vertical-align: -0.25em;
+}
+@mixin icon-arrowLeft($size) {
+  @include icofont;
+  content: "\e91a";
+  display: inline-block;
+  font-size: #{$size}px;
+  vertical-align: -0.25em;
+}
+@mixin icon-arrowDown($size) {
+  @include icofont;
+  content: "\e919";
+  display: inline-block;
+  font-size: #{$size}px;
+  vertical-align: -0.2em;
+}
+@mixin icon-arrowUp($size) {
+  @include icofont;
+  content: "\e91c";
+  display: inline-block;
+  font-size: #{$size}px;
+  vertical-align: -0.2em;
+}
+@mixin icon-arrowSelect($size) {
+  @include icofont;
+  content: "\e918";
+  display: inline-block;
+  font-size: #{$size}px;
+  vertical-align: -0.2em;
+}
+@mixin icon-diamond($size) {
+  @include icofont;
+  content: "\e90c";
+  display: inline-block;
+  font-size: #{$size}px;
+  vertical-align: -0.2em;
+}
+/* -----------------
+  icofont number
+----------------- */
+// @for $i from 1 through 9 {
+//   li:nth-child(#{$i}) {
+//     &:before {
+//       @extend %icon-num_#{$i};
+//     }
+//   }
+// }
+%icon-num_1 {
+  @extend .icon-one:before;
+}
+%icon-num_2 {
+  @extend .icon-two:before;
+}
+%icon-num_3 {
+  @extend .icon-three:before;
+}
+%icon-num_4 {
+  @extend .icon-four:before;
+}
+%icon-num_5 {
+  @extend .icon-five:before;
+}
+%icon-num_6 {
+  @extend .icon-six:before;
+}
+%icon-num_7 {
+  @extend .icon-seven:before;
+}
+%icon-num_8 {
+  @extend .icon-eight:before;
+}
+%icon-num_9 {
+  @extend .icon-nine:before;
+}
+%icon-num_0 {
+  @extend .icon-zero:before;
+}
+
+/* -----------------
+  bg-cover
+----------------- */
+@mixin bg-cover {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* -----------------
+  bg-gradient(club)
+----------------- */
+@mixin bg-gradient_club {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 0;
+  transition-duration: $tr_speed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(to right, #8e1c79, #ff4608);
+}
+
+
+/* -----------------
+  flex
+----------------- */
+@mixin flex {
+  display: flex!important;
+  display: -webkit-flex!important;
+  display: -moz-flex!important;
+  display: -ms-flexbox!important;
+  display: -o-flex!important;
+
+  flex-direction: column!important;
+  -webkit-flex-direction: column!important;
+  -moz-flex-direction: column!important;
+  -ms-flex-direction: column!important;
+  -o-flex-direction: column!important;
+}
+
+
+/* -----------------
+  sprite 
+----------------- */
+@mixin r-sprite-width($sprite) {
+  width: nth($sprite, 5)/2;
+}
+
+@mixin r-sprite-height($sprite) {
+  height: nth($sprite, 6)/2;
+}
+
+@mixin r-sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3)/2;
+  $sprite-offset-y: nth($sprite, 4)/2;
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin r-sprite-size($sprite) {
+  background-size: nth($sprite, 7)/2 nth($sprite, 8)/2;
+}
+
+@mixin r-sprite($sprite) {
+  @include sprite-image($sprite);
+  @include r-sprite-position($sprite);
+  @include r-sprite-width($sprite);
+  @include r-sprite-height($sprite);
+  @include r-sprite-size($sprite); 
+}
+
+
+/* -----------------
+  calc-vw 
+----------------- */
+@function calc-vw($size, $viewport:320){
+  $rate: 100 / $viewport;
+  @return $rate * $size * 1vw;
+}
+

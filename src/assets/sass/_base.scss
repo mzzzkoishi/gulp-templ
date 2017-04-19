@@ -1,0 +1,39 @@
+body {
+  background-color: $c_g5;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+a {
+  transition-duration: $tr_speed;
+  transition-property: all;
+  img,.noimg1,.noimg2,.noimg3 {
+    transition-duration: $tr_speed;
+    transition-property: all;
+  }
+  
+  &:hover {
+    color: $c_g2;
+    img {
+      opacity: 0.7;
+    }
+    .noimg1,.noimg2,.noimg3 {
+      opacity: 0.7;
+    }
+  }
+}
+
+@mixin hover_standard {
+  a:hover &{
+    color: $c_g2;
+  }
+  a & {
+    transition-duration: $tr_speed;
+  }
+}
+
+select {
+  @include yuGo-M;
+}
