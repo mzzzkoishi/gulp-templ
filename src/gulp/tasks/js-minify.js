@@ -47,7 +47,7 @@ gulp.task('js-minify', function(){
         .pipe(buffer())
         .pipe($.babel({compact: true,comments:false,minified: true,presets: ['es2015']}))
         .pipe(gulp.dest(dstPath[i]))
-        .pipe(gulp.dest(prdPath[i]))
+        .pipe($.if(make.backend, gulp.dest(prdPath[i])))
         .pipe($.if(use.styleguide,gulp.dest(sgPath[i])))
       ;
     } else {
@@ -59,7 +59,7 @@ gulp.task('js-minify', function(){
         .pipe(buffer())
         .pipe($.uglify().on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
         .pipe(gulp.dest(dstPath[i]))
-        .pipe(gulp.dest(prdPath[i]))
+        .pipe($.if(make.backend, gulp.dest(prdPath[i])))
         .pipe($.if(use.styleguide,gulp.dest(sgPath[i])))
       ;
     }

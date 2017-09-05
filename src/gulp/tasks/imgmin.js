@@ -40,7 +40,7 @@ gulp.task( 'imgmin', function(){
       .pipe($.imagemin( imageminOptions ))
       .pipe($.chmod(644))
       .pipe(gulp.dest( dstPath[i] ))
-      .pipe(gulp.dest( prdPath[i] ))
+      .pipe($.if(make.backend, gulp.dest(prdPath[i])))
       .pipe($.if(use.styleguide,gulp.dest(sgPath[i])))
       .pipe($.connect.reload());
     if(make.device.length){
@@ -48,7 +48,7 @@ gulp.task( 'imgmin', function(){
         .pipe($.imagemin( imageminOptions ))
         .pipe($.chmod(644))
         .pipe(gulp.dest( dstPath[i] ))
-        .pipe(gulp.dest( prdPath[i] ))
+        .pipe($.if(make.backend, gulp.dest(prdPath[i])))
         .pipe($.if(use.styleguide,gulp.dest(sgPath[i])))
         .pipe($.connect.reload());
     }

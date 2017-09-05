@@ -43,7 +43,7 @@ gulp.task('sprite', function () {
     for(var i = 0; i < make.device.length; i++) {
       spriteData.img.pipe(gulp.dest(dstPath[i]));
       spriteData.img.pipe($.if(use.styleguide,gulp.dest(sgPath[i])));
-      spriteData.img.pipe(gulp.dest(prdPath[i]));
+      spriteData.img.pipe($.if(make.backend, gulp.dest(prdPath[i])));
       spriteData.css.pipe(gulp.dest(paths.srcDir + '/theme/' + make.device[i] + '/sass/'));
     }
   } else {
@@ -60,8 +60,8 @@ gulp.task('sprite', function () {
       }
     }));
     spriteData.img.pipe(gulp.dest(dstPath));
-    spriteData.img.pipe($.if(use.styleguide,gulp.dest(sgPath[i])));
-    spriteData.img.pipe(gulp.dest(prdPath));
+    spriteData.img.pipe($.if(use.styleguide,gulp.dest(sgPath)));
+    spriteData.img.pipe($.if(make.backend, gulp.dest(prdPath)))
     spriteData.css.pipe(gulp.dest(paths.srcDir + '/sass/'));
   }
   

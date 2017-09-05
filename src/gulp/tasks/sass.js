@@ -40,12 +40,12 @@ gulp.task('sass', function () {
     }))
       .pipe(buffer())
       .pipe($.sourcemaps.write('../maps'))
-      .pipe(gulp.dest(prdPath[i]))
+      .pipe($.if(make.backend, gulp.dest(prdPath[i])))
       .pipe(gulp.dest(dstPath[i]));
 
     gulp.src([paths.srcDir + '/fonts/**/*.*'],{base: paths.srcDir})
       .pipe(gulp.dest(paths.dstDir + '/css/'))
-      .pipe(gulp.dest(paths.prdDir + '/css/'))
+      .pipe($.if(make.backend, gulp.dest(paths.prdDir + '/css/')))
       .pipe(gulp.dest(paths.sgDir + '/'));
   }
 });

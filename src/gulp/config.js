@@ -1,10 +1,11 @@
 var make = {
         device: '' // ['pc','sp'] / ''
+      , backend: false  
     },
     basePaths = {
         srcDir: 'assets'
-      , dstDir: 'dist'
-      , sgDir : 'dist/styleguide'
+      , dstDir: '../dist'
+      , sgDir : '../dist/styleguide'
       , prdDir: '../www/html/assets/themes/sheis/assets'
     },
     ports = {
