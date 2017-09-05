@@ -1,243 +1,419 @@
-/* -------------------
-  Layout
-
-.l-wrapper
-  ├ .l-header 
-  ├ .l-container （フレームを規定 .f-xxx）
-  │   ├ .l-billboard //ビルボードエリア（w100%・幅固定などあり）
-  │   └ .l-content （テンプレートを規定 .t-xxx）
-  │      ├ .l-stride （2column時にメインカラム、サイドカラムを跨ぐエリア）
-  │      └ .l-content-inner（幅固定）
-  │        ├ .l-main //メインコンテンツ
-  │        │    └ .l-section //セクション 
-  │        │      └ .l-inner //基本のpadding（必須ではない） 
-  │        └ .l-side //2column時のサイドカラム
-  └ .l-footer
-.l-gnavi
-
-------------------- */
-
-@mixin contentBasic {
-  min-width: 1100px;
-  max-width: 1500px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  position: relative;
-  @include mqTB {
-    min-width: 1024px;
-    max-width: 100%;
-  }
-}
-
-body {
-  min-width: 1280px;
-}
-
-// gnavi以外の全体包括
 .l-wrapper {
-  padding-left: $w_gnaviClose;
-  position: relative;
-  background-color: $c_w;
+  overflow: hidden;
+//  @include mqSP {
+//    height: 100vh;
+//    overflow: scroll;
+//    -webkit-overflow-scrolling: touch;
+//  }
 }
-
 .l-header {
-  background-color: $c_w;
-  min-width: 1100px;
-  @include mqTB {
-    min-width: 1024px;
-    // &.is-fixed {
-    //   min-width: calc(100% - 50px);
+  display: flex;
+  padding: 0 60px;
+  box-sizing: border-box;
+  height: 170px;
+  position: relative;
+  z-index: 1;
+  @include mqTB  {
+    padding: 0 calc-vw(60,1280);
+    height: calc-vw(170,1280);
+  }
+  @include mqSP {
+    width: 100%;
+    height: calc-vw(100);
+    padding: 0 $w_SP-padding + px;
+    border-bottom: 2px solid $c_k;
+    border-color: $c_k !important;
+    &.header_top {
+      position: relative;
+      height: calc-vw(160);
+      border: none;
+    }
+  }
+  &.header_simple {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 2px 20px 0 60px;
+    height: 50px;
+    // @include mqTB  {
+    //   padding: 2px 20px 0 calc-vw(60,1280);
+    //   margin-bottom: 0;
     // }
+    @include mqSP {
+      margin: 0;
+      padding: calc-vw(10) calc-vw(20) calc-vw(15) calc-vw(20);
+      border-bottom: 2px solid $c_k;
+      height: 52px;
+    }
   }
   &.is-fixed {
     position: fixed;
-    top: -100px;
-    left: 50px;
-    right: 0;
-    z-index: 998;
-    // width: calc(100% - 50px);
-    background-color: rgba($c_w,0.93);
-    transition-property: top;
-    transition-duration: .4s;
-    transition-timing-function: cubic-bezier(.19,1,.22,1);
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    box-sizing: border-box;
+    height: 50px;
+    @include mqTB {
+      height: calc-vw(50,1280);
+    }
+    @include mqSP {
+      height: calc-vw(100);
+      border: none;
+    }
   }
 }
-
-
 
 .l-container {
-  background-color: $c_w;
-}
-
-.l-stride {
-  @include contentBasic;
-  padding: 0 $w_sidePadding;
-  @include mqTB {
-    padding: 0 3vw;
-  }
-}
-
-/* -------------------
-  f-column-full内で使用
--------------------*/
-
-// windowサイズ width 100%
-.l-fullWidth {
-  width: 100%;
-  min-width: 1100px;
   position: relative;
-  @include mqTB {
-    min-width: 1024px;
-  }
-}
-
-// widthリキッド。左右にpadding無
-.l-flexWidth {
-  @include contentBasic;
-}
-
-// widthリキッド。左右にpadding有
-.l-fixWidth {
-  @include contentBasic;
-  padding: 0 $w_sidePadding;
-  @include mqTB {
-    padding: 0 3vw;
-  }
-  //Det(学科のパネルのみ例外でリキッドさせない)
-  .panel_circle & {
-    max-width: 1100px;
-  }
-  
 }
 
 .l-content {
-  padding-bottom: 185px;
+  // width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  @include mqTB{
+    width: 100%;
+  }
+  @include mqSP{
+    flex-direction: column;
+    width: 100%;
+  }
+  .page-top &,
+  .page-detail_feature &,
+  .page-list_gift &,
+  .page-detail_gift & {
+    width: 100%;
+    display: block;
+    @include mqTB{
+      width: 100%;
+    }
+    @include mqSP{
+      width: 100%;
+    }
+  }
 }
 
-.l-content-inner {
-  .f-column-1 & {
-    padding: 0 $w_sidePadding;
-    @include contentBasic;
-    @include mqTB {
-      padding: 0 3vw;
-    }
-  }
-  .f-column-2 & {
-    padding: 0 $w_sidePadding;
-    @include contentBasic;
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-    overflow: hidden;
-    @include mqTB {
-      padding: 0 3vw;
-    }
-  }
-}
 
 .l-main {
-  .f-column-2 & {
-    display: table-cell;
-    vertical-align: top;
+  width: 100%;
+  margin-bottom: 100px;
+  @include mqTB{
+    margin-bottom: calc-vw(100,1280);
+  }
+  @include mqSP{
+    margin-bottom: calc-vw(120);
+  }
+  &:not(:only-child) {
+    width: calc(100% - 340px);
+    @include mqTB{
+      width: calc-vw(940,1280);
+    }
+    @include mqSP{
+      width: 100%;
+    }
+  }
+  .page-mypage & {
+    padding-top: 60px;
+    @include mqSP {
+      padding-top: calc-vw(50);
+      margin-bottom: 0;
+    }
+  }
+  .page-list &,
+  .lage-list_gift &,
+  .page-detail_feature &,
+  .page-detail_gift & {
+    margin-bottom: 0;
+  }
+  
+  
+  .page-faq &,
+  .page-registration & {
+    margin-bottom: 0;
+  }
+  .page-list_girlfriends & {
+    margin-bottom: calc-vw(27,320);
+  }
+}
+
+.main-inner {
+  width: 600px;
+  margin: 0 auto;
+  @include mqTB{
+    width: calc-vw(600,1280);
+  }
+  @include mqSP{
+    width: calc-vw(290,320);
+  }
+  .page-mypage & {
+    @include mqSP {
+      width: 100%;
+      > *:last-child {
+        padding-bottom: 40px;
+        text-align: center;
+        &.pager_simple-wrap {
+          padding-bottom: 0;
+        }
+      }
+    }
   }
 }
 
 .l-side {
-  .f-column-2 & {
-    display: table-cell;
-    width: 300px;
-    vertical-align: top;
+  width: 340px;
+  background-color: $c_gray_light;
+  @include mqTB{
+    width: calc-vw(340,1280);
+  }
+  @include mqSP{
+    width: 100%;
+    margin: 0 auto;
+  }
+  .page-mypage & {
+    background-color: $c_gray_light;
+    padding-top: 60px;
+    @include mqSP {
+      padding-top: 40px;
+    }
   }
 }
 
+//.l-side {
+//  width: 340px;
+//  background-color: $c_gray;
+//  @include mqTB{
+//    width: calc-vw(340,1280);
+//  }
+//  @include mqSP{
+//    width: 100%;
+//    margin: 0 auto;
+//  }
+//}
+
+.l-side-inner{
+  width: 300px;
+  margin: 0 auto;
+  padding-bottom: 70px;
+//  background-color: #fff;
+
+  @include mqTB{
+    width: calc-vw(300,1280);
+  }
+  @include mqSP{
+    width: calc-vw(290,320);
+    margin: 0 auto;
+    padding-bottom: calc-vw(44,320);
+
+  }
+  .page-mypage & {
+    background-color: transparent;
+  }
+}
+
+//.l-side-inner{
+//  width: 300px;
+//  margin: 0 auto;
+//
+//  background-color: #fff;
+//  height: 100px;
+//
+//  @include mqTB{
+//    width: calc-vw(300,1280);
+//  }
+//  @include mqSP{
+//    width: calc-vw(290,320);
+//    margin: 0 auto;
+//  }
+//}
+
 .l-section {
-  .l-main & {
-    margin-bottom: 65px;
-    &:last-child {
-      margin-bottom: 0;
+  padding: 65px 0 100px;
+  @include mqTB {
+    padding: calc-vw(65,1280) 0 calc-vw(100,1280);
+  }
+  @include mqSP {
+    padding: calc-vw(56) 0 calc-vw(90);
+    .page-faq &{
+      padding-bottom: 0;
     }
   }
-  .l-side & {
-    .section-content {
-      background-color: $c_k5;
-      margin: 0 0 5px 0;
-      padding: 30px 0 0 0;
+  &.gift-description {
+    padding: 120px 0 0;
+    @include mqTB {
+      padding-top: calc-vw(120,1280);
+    }
+    @include mqSP {
+      padding-top: calc-vw(90);
+    }
+  }
+  .page-top & {
+    background-color: $c_w;
+  }
+  .page-top .l-main & {
+    &:nth-child(3) {
+      padding-bottom: 0;
+    }
+  }
+  .page-detail_feature & {
+    border-top: 1px solid $c_k;
+    padding-bottom: 60px;
+    @include mqTB {
+      padding-bottom: calc-vw(60,1280);
+    }
+    @include mqSP {
+      padding-bottom: calc-vw(90);
+    }
+  }
+  .page-detail_feature .l-aside & {
+    background-color: $c_w;
+    padding-bottom: 100px;
+    &:first-child {
+      border-top: 0;
+    }
+    @include mqTB {
+      padding-bottom: calc-vw(100,1280);
+    }
+    @include mqSP {
+      padding-bottom: calc-vw(90);
+    }
+  }
+
+  .page-detail .l-aside &,
+  .page-404 .l-aside &,
+  .page-list_girlfriends .l-aside &,
+  .page-detail_girlfriends .l-aside &,
+  &.gift-timeline{
+    border-top: 1px solid $c_k;
+  }
+  .page-registration .l-main &,
+  .page-404 .l-main &,
+  .page-list .l-main &,
+  .page-list_gift .l-main &,
+  .page-top .l-main & {
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+  .page-registration .l-main & {
+    &:nth-child(2) {
+      @include mqSP {
+        padding-top: 0;
+      }
+    }
+  }
+  
+  .page-list_girlfriends .l-main & {
+    padding-bottom: 0;
+  }
+  
+  &.detail_girlfriends{
+    padding-bottom: 0;
+  }
+  &.detail_girlfriends_other{
+    width: 980px;
+    margin: 0 auto;
+    border-top: 1px solid $c_gray;
+    padding-bottom: 0;
+    @include mqTB{
+      width: calc-vw(980,1280);
+    }
+    @include mqSP{
+      width: calc-vw(290,320);
+      padding-bottom: calc-vw(15,320);
+    }
+  }
+  
+  &.detail_girlfriends_related{
+    padding: 60px 0;
+    @include mqTB{
+      padding: calc-vw(36,1280) 0;
+    }
+    @include mqSP{
+      padding: calc-vw(36,320) 0;
+    }
+  }
+  .page-contact & {
+    padding-bottom: 0;
+  }
+  .page-search & {
+    width: 980px;
+    margin: 0 auto;
+    @include mqTB {
+      width: calc-vw(980,1280);
+    }
+    @include mqSP {
+      width: 100%;
     }
   }
   .section-content {
-    background-color: $c_w;
-  }
-  .t-club-circle & {
-    margin-bottom: 0;
-    padding-top: 65px;
-  }
-}
-
-.l-section_secondary {
-  margin-bottom: 70px;
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.l-inner {
-  padding: 60px;
-  .f-column-2 .l-main .heading_searchResult + .section-content &,
-  .f-column-2 .l-main .refine + .section-content & {
-    padding-top: 0;
-    .panel_event {
-      margin-top: 0;
+    width: 780px;
+    margin: 0 auto;
+    @include mqTB {
+      width: calc-vw(780,1280);
+    }
+    @include mqSP {
+      width: 100%;
+      padding: 0 calc-vw(30);
+      box-sizing: border-box;
     }
   }
-  .l-side & {
-    padding: 35px 25px;
-    box-sizing: border-box;
+}
+
+.l-appendix{
+  width: 600px;
+  margin: 0 auto;
+  border-top: 6px solid $c_k;
+  @include mqTB{
+    width: calc-vw(600,1280);
+
+  }
+  @include mqSP{
+    width: calc-vw(290,320);
+    margin: 0 auto;
+  }
+}
+
+.l-aside {
+  .page-list &,
+  .page-list_feature &{
+    padding-top: 10px;
+    @include mqTB {
+      padding-top: calc-vw(10,1280);
+    }
+    @include mqSP{
+      padding-top: 0;
+    }
   }
 }
 
 .l-footer {
-  background-color: $c_w;
-  min-width: 1100px;
   position: relative;
-  @include mqTB {
-    min-width: 1024px;
-  }
-  .footer-inner {
-    @include contentBasic;
-    padding: 40px $w_sidePadding 60px;
-    @include mqTB {
-      padding: 40px 3vw 60px;
+  z-index: 1;
+  
+//  margin-top: 110px;
+//  @include mqTB {
+//    margin-top: calc-vw(110,1280);    
+//  }
+//  @include mqSP {
+//    margin-top: calc-vw(120)
+//  }
+  &.footer_simple {
+    position: relative;
+    padding-top: 230px;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      width: 1px;
+      height: 100px;
+      background: $c_k;
     }
-  }
-}
-
-
-//gnavi
-.l-gnavi {
-  width: $w_gnaviClose;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  background-color: $c_p1;
-  @include yuMin-M;
-  body.is-dpt_letters & {
-    background-color: $c_dpt_letters;
-  }
-  body.is-dpt_shinto & {
-    background-color: $c_dpt_shinto;
-  }
-  body.is-dpt_law & {
-    background-color: $c_dpt_law;
-  }
-  body.is-dpt_economics & {
-    background-color: $c_dpt_economics;
-  }
-  body.is-dpt_human & {
-    background-color: $c_dpt_human;
-  }
-  body.is-club-circle & {
-    background-color: $c_c1;
+    @include mqSP {
+      padding-top: 160px;
+    }
   }
 }

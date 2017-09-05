@@ -1,0 +1,159 @@
+@font-face {
+  font-family: "NotoSansCJKjp";
+  font-style: normal;
+  font-weight: 400;
+  src: local('Noto Sans CJK JP Regular'), 
+    url('fonts/noto/NotoSansCJKjp-Regular.woff') format('woff'),
+    url('fonts/noto/NotoSansCJKjp-Regular.otf') format('opentype')
+}
+@font-face {
+  font-family: "NotoSansCJKjp";
+  font-style: normal;
+  font-weight: 700;
+  src: local('Noto Sans CJK JP Bold'), 
+    url('fonts/noto/NotoSansCJKjp-Bold.woff') format('woff'),
+    url('fonts/noto/NotoSansCJKjp-Bold.otf') format('opentype')
+}
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Medium");
+  font-weight: 100;
+}
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Medium");
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Medium");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Medium");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Yu Gothic";
+  src: local("Yu Gothic Bold");
+  font-weight: bold;
+}
+
+$f_base: 'NotoSansCJKjp','Yu Gothic', YuGothic, 'Hiragino Kaku Gothic Pro', Meiryo, sans-serif;
+$f_poppins: 'Poppins', sans-serif;
+$f_apple: 'Homemade Apple', cursive;
+$f_chikumin: 'FOT-筑紫B丸ゴシック Std D', serif;
+
+@mixin f_base {
+  font-family: $f_base;
+  letter-spacing: 0.025em;
+}
+
+@mixin f_poppins {
+  font-family: $f_poppins;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+@mixin f_poppins_b {
+  font-family: $f_poppins;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+@mixin f_poppins-base {
+  font-family: $f_poppins,$f_base;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+@mixin f_poppins-base_b {
+  font-family: $f_poppins,$f_base;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+@mixin f_apple {
+  font-family: $f_apple;
+  letter-spacing: normal;
+}
+
+@mixin f_chikumin {
+  font-family: $f_chikumin;
+  letter-spacing: normal;
+}
+
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?ldgpku');
+  src:  url('fonts/icomoon.eot?ldgpku#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ldgpku') format('truetype'),
+    url('fonts/icomoon.woff?ldgpku') format('woff'),
+    url('fonts/icomoon.svg?ldgpku#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@mixin icofont {
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pocket:before {
+  content: "\e900";
+}
+.icon-arrow_right:before {
+  content: "\e901";
+}
+.icon-arrow_under:before {
+  content: "\e902";
+}
+.icon-blank:before {
+  content: "\e903";
+}
+.icon-facebook:before {
+  content: "\e904";
+}
+.icon-home:before {
+  content: "\e905";
+}
+.icon-instagram:before {
+  content: "\e906";
+}
+.icon-search:before {
+  content: "\e907";
+}
+.icon-share:before {
+  content: "\e908";
+}
+.icon-twitter:before {
+  content: "\e909";
+}
+.icon-pickup:before {
+  content: "\e90c";
+}
