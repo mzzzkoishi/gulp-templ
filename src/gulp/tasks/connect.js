@@ -10,17 +10,19 @@ var gulp = require('gulp'),
 gulp.task('connect', function() {
   if(make.device.length){
     for(var i = 0; i < make.device.length; i++) {
-      $.connect.server({
-        root: [paths.dstDir + '/theme/' + make.device[i] + '/'],
-        port: ports.static + (10 * i),
-        livereload: true
-      });
+      gulp.src(paths.dstDir + '/theme/' + make.device[i] + '/')
+        .pipe($.webserver({
+          port: ports.static + (10 * i),
+          livereload: true,
+          fallback: 'index.html'
+        }));
     }
   } else {
-    $.connect.server({
-      root: [paths.dstDir],
-      port: ports.static,
-      livereload: true
-    });
+    gulp.src(paths.dstDir)
+      .pipe($.webserver({
+        livereload: true,
+        port: ports.static,
+        fallback: 'index.html'
+      }));
   }
 });
