@@ -38,7 +38,7 @@
     "lazysizes": "^4.0.0-rc3",
     "minimist": "^1.2.0",
     "velocity-animate": "^1.5.0",
-    "vue": "^1.0.28",
+    "vue": "^2.2.6",
     "vue-router": "^2.4.0",
     "vueify": "^9.4.1"
   },
